@@ -1,0 +1,77 @@
+{% extends 'templates/app.twig' %}
+
+	{% block content %}
+<div class="row">
+	<div class="col-md-10">
+		<div id="skilllist">
+			<div class="panel">
+                <div class="panel-heading">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <h3 class="pull-left">{{ skill.name }}
+                                </h3>
+                            </div>
+                            <div class="col-sm-3">
+                                <h4 class="pull-right">
+                                <small> {{ skill.created_at }} </small>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            <div class="panel-body">
+                {{ skill.description }} 
+
+                <br/>
+                {% if skill.url %}
+                <a href="{{skill.url}}">View Offical Project Website</a>
+                {% endif %}
+            </div>
+            <h3> List of User With {{ skill.name }} Skill</h3>
+
+            {% for user in skill.users %}
+
+            <div class="media">
+            <!--<div class="media-left media-middle">
+            <a href="#">
+            <img class="media-object" src=".." alt="..">
+            </a>
+            </div>-->
+            <div class="media-body">
+            <h4 class="media-heading"><a href="{{ path_for('users.view', {'id': user.id } ) }}">{{ user.first_name }} {{ user.email }}</a></h4>
+            ..
+            </div>
+            </div>
+
+
+
+            {% endfor %}
+            
+            <!-- <div class="panel-footer">
+                <span class="label label-default">Welcome</span> <span class="label label-default">Updates</span> <span class="label label-default">July</span>
+            </div> -->
+        </div>
+        
+       </div>
+    </div>
+    <!-- Only the owner of this skill and the admin can edit and delete it -->
+     {% if (auth.user.role_id and auth.user.role_id <= 3) %}
+		<div class="text-center">
+            <p><a href="{{ path_for('skills.edit', {'id': skill.id } ) }}" class="btn btn-primary">Edit skill</a>
+                </p>
+                <p> <a onclick="return confirm('Are you sure you wish to delete this skill?');"  href="{{ path_for('skills.delete', {'id': skill.id } ) }}" class="btn btn-danger">Delete skill</a>
+        
+                </p>
+          </div>
+             
+    {% endif %}
+    </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+<nav class="navbar navbar-inverse navbar-embossed col-md-12" role="navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+              </button>
+              <a class="navbar-brand navbar-brand1" href="{{ path_for('home')}}"> TechJobs</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+              <ul class="nav navbar-nav navbar-right">
+                
+                <!-- If User is logged in -->
+                {% if auth.check %}
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa-solid fa-user"></i>{{ auth.user.first_name }} {{ auth.user.last_name }} <b class="caret"></b></a>
+                  <span class="dropdown-arrow"></span>
+                  <ul class="dropdown-menu">
+                    <li><a href="{{ path_for('users.view', { 'id': auth.user.id }) }}"><i class="fa-solid fa-user"></i>My Profile</a></li>
+                    <li><a href="{{ path_for('skills.view', { 'id': auth.user.id }) }}"><i class="fa-solid fa-user"></i>My Skills</a></li>
+                   
+                    <li><a href="{{ path_for('posts.index', {'user_id':  auth.user.id }) }}">My Posts</a></li> 
+                    <li><a href="{{ path_for('auth.password.change') }}">Change Password</a></li>
+
+                    <li class="divider"></li>
+                     <li><a href="{{ path_for('auth.signout')}}"><i class="fa-solid fa-right-from-bracket fa-flip"></i>Logout</a></li>
+                  </ul>
+                </li> 
+
+                      <!-- If User is admin -->
+                      {% if auth.user.role_id < 3 and auth.user.role_id != null %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa-solid fa-user"></i>Admin menu <b class="caret"></b></a>
+                                <span class="dropdown-arrow"></span>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path_for('users.index') }}"><i class="fa-solid fa-users"></i>All Users </a></li>
+                                        <li><a href="{{ path_for('posts.index') }}">All Posts </a></li>  
+                                        <li><a href="{{ path_for('roles.index') }}">All Roles </a></li>
+                                        <li><a href="{{ path_for('skills.index') }}">All Skills </a></li> 
+                                        <li><a href="{{ path_for('countries.index') }}">All Countries </a></li> 
+                                        <li><a href="{{ path_for('states.index') }}">All States </a></li> 
+                                        <li><a href="{{ path_for('searches.index') }}">All Search Terms </a></li>
+                                    </ul>
+                                </li> 
+                          {% endif %}
+                
+                {% else %}
+                 <li><a href="{{ path_for('auth.signup')}}"><i class="fa-solid fa-user-plus"></i>Signup</a></li>
+                 <!--<li><a href="{{ path_for('auth.signin')}}"><i class="fa-solid fa-user"></i>Signin</a></li>-->
+                
+                {% endif %}
+                <li><a href="{{ path_for('about')}}">About Us</a></li>
+                <li><a href="{{ path_for('about')}}"><i class="fa-solid fa-phone-volume"></i>Contact Us</a></li>
+               </ul>
+               <form  action="{{ path_for('searches.add')}}" method="post" class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" name="searchterm" id="navbarInput-01" type="search" placeholder="Search">
+                    <span class="input-group-btn">
+                      <button type="submit" class="btn"><span class="fui-search"></span></button>
+                    </span>
+                  </div>
+                </div>
+                {{csrf.field | raw}}
+              </form>
+            </div><!-- /.navbar-collapse -->
+          </nav>

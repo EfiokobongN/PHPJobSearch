@@ -1,0 +1,37 @@
+body{
+	
+	padding-bottom: 40px;
+}
+.navbar-brand1{
+	color: #0000ff;
+	width: 500px;
+} 
+.navbar-brand1:hover{
+	color: #0f0fc9ea;
+	}
+
+.login-screen{
+	background-color: #fffdfd;
+}
+.glyphicon,.fa-solid{
+	color: #0a41f5f1;
+} 
+
+/*post styly*/
+.pull1{
+background-color: #0f0fddd7;
+}
+.pull1:hover{
+	background-color: #0f0fc9ea;
+	}
+.text-btn{
+	font-size: 21px;
+	color: rgb(20, 19, 26);
+	font-weight: lighter;
+}
+.searchname,.onclick{
+	color: #ee0b0bef;
+}
+.user-email{
+	font-size: 2rem;
+}
